@@ -1,4 +1,4 @@
-package entity;
+package com.example.springbootproject.entity;
 
 public class Customer {
     private long id;
