@@ -1,28 +1,32 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'maven_3_5_0'
+    }
     stages {
-        stage('Checkout') {
+        stage('Build Maven') {
             steps {
-                git 'https://github.com/Baranll0/SpringBootDockerDemo'
+                checkout scmGit(
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'https://github.com/Baranll0/SpringBootDockerDemo']]
+                )
+                bat 'mvn clean install'
             }
         }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build("demo2:${env.BUILD_NUMBER}")
+        stage('Build docker image'){
+            steps{
+                script{
+                    docker.build("baranll0/app:${env.BUILD_NUMBER}")
                 }
             }
         }
+        stage('Push image to Hub'){
+            steps{
+                script{
+                    docker.image("baranll0/app:${env.BUILD_NUMBER}").run("-d -p 8989:8080 --name demo-container")
 
-        stage('Run Docker Container') {
-            steps {
-                script {
-                    docker.image("demo2:${env.BUILD_NUMBER}").run("-d -p 8989:8080 --name demo-container")
                 }
             }
         }
     }
-
 }
