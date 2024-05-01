@@ -20,13 +20,11 @@ pipeline {
                 }
             }
         }
-        stage('Push image to Hub'){
+        stage('Push image to Hu                                                                                                                                         b'){
             steps{
-                script{
-                    bat 'docker login -u baranll0 -p 120720Baran.'
-                    bat 'docker push baranll0/app'
-
-                }
+                 script {
+                                    docker.image("app:${env.BUILD_NUMBER}").run("-d -p 8989:8080 --name demo-container")
+                                }
             }
         }
     }
