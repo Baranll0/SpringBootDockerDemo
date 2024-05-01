@@ -23,8 +23,8 @@ pipeline {
         stage('Push image to Hu                                                                                                                                         b'){
             steps{
                  script {
-                                    docker.image("baranll0/app:${env.BUILD_NUMBER}").run("-d -p 8989:8080 --name demo-container")
-                                }
+                 docker.image("baranll0/app:${env.BUILD_NUMBER}").run("-d -p 6530:9595 --name demo-container")
+                            }
             }
         }
     }
