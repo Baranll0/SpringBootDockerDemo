@@ -23,8 +23,9 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
+                    bat "docker stop demo-container || true"
+                    bat "docker rm demo-container || true"
                     docker.image("baranll0/app:${env.BUILD_NUMBER}").run("-d -p 6530:6530 --name demo-container")
-
                 }
             }
         }
