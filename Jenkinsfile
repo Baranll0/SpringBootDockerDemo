@@ -19,7 +19,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image("demo2:${env.BUILD_NUMBER}").run("-d -p 6530:6530 --name demo-container")
+                    docker.image("demo2:${env.BUILD_NUMBER}").run("-d -p 8989:8080 --name demo-container")
                 }
             }
         }
