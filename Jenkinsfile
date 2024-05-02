@@ -14,15 +14,18 @@ pipeline {
             }
         }
 
-
         stage('Build docker image'){
-            steps{
-                script{
-                    docker.build("baranll0/app:${env.BUILD_NUMBER}")
-                }
-            }
+                    steps{
+                        script{
+                            docker.build("baranll0/app:${env.BUILD_NUMBER}")
+                        }
+                    }
         }
-
+        stage('Run Docker Container') {
+                    steps {
+                           script {
+                               docker.image("demo/app:${env.BUILD_NUMBER}").run("-d -p 4444:8080 --name demo-container")
+                           }
+                    }
+        }
     }
-
-}
