@@ -13,13 +13,14 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
-        stage('Build docker image'){
-            steps{
-                script{
-                    docker.build("demo13:${env.BUILD_NUMBER}")
-                }
-            }
-        }
+                   stage('Stop and Remove Existing Container') {
+                                             steps {stage('Build docker image'){
+                                                 script {    steps{
+                                                            bat 'docker stop demo-container '        script{
+                                                            bat 'docker rm demo-container'            docker.build("demo13:${env.BUILD_NUMBER}")
+                                                        }        }
+                                                   }    }
+                                        }}
         stage('Push image to Hub'){
             steps{
                 script{
