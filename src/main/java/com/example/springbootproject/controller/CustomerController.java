@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
     @GetMapping("/all")
     public String home() {
-        return "Customer Page!";
+        return "Customer Pagedd!";
     }
 }
